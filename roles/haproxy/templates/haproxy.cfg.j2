@@ -1,5 +1,5 @@
 global
-    log         127.0.0.1 local2 
+    log         127.0.0.1 local2
 
     chroot      /var/lib/haproxy
     pidfile     /var/run/haproxy.pid
@@ -31,9 +31,9 @@ defaults
 
 backend app
     {% for host in groups['lbservers'] %}
-    	listen {{ daemonname }} {{ hostvars[host]['ansible_' + iface].ipv4.address }}:{{ listenport }}
+    	listen {{ daemonname }} {{ hostvars[host]['ansible_ssh_host'] }}:{{ listenport }}
     {% endfor %}
     balance     {{ balance }}
-    {% for host in groups['webservers'] %}
-        server {{ host }} {{ hostvars[host]['ansible_' + iface].ipv4.address }}:{{ httpd_port }}
+    {% for host in groups['jboss-servers'] %}
+      server {{ host }} {{ hostvars[host]['ansible_ssh_host'] }}:{{ httpd_port }}
     {% endfor %}

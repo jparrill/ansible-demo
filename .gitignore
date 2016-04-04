@@ -4,6 +4,7 @@
 
 ## Other Stuff
 *.log
+disconnected/
 
 ## Vagrant
 .vagrant/

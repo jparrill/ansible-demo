@@ -9,16 +9,16 @@ jboss01.localdomain:
   memory: 1024
   cpus: 1
   address: 192.168.1.51
-  box: centos7
+  box: geerlingguy/centos7
 
 jboss02.localdomain:
   memory: 1024
   cpus: 1
   address: 192.168.1.52
-  box: centos7
+  box: geerlingguy/centos7
 
 haproxy01.localdomain:
   memory: 1024
   cpus: 1
   address: 192.168.1.53
-  box: centos7
+  box: geerlingguy/centos7
