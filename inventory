@@ -1,0 +1,6 @@
+[jboss-servers]
+jboss01.localdomain ansible_ssh_host=192.168.1.51  ansible_ssh_port=22   ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+jboss02.localdomain ansible_ssh_host=192.168.1.52  ansible_ssh_port=22   ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+[lbservers]
+haproxy01.localdomain ansible_ssh_host=192.168.1.53  ansible_ssh_port=22   ansible_ssh_user=vagrant ansible_ssh_pass=vagrant

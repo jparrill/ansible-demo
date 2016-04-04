@@ -1,0 +1,9 @@
+## Packages
+*.war
+*.rpm
+
+## Other Stuff
+*.log
+
+## Vagrant
+.vagrant/
