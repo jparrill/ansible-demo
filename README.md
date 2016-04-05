@@ -131,6 +131,7 @@ With all three templates created, now we can consume it ;), just press Run (rock
 - [Vagrant Atlas](https://atlas.hashicorp.com/boxes/search) - Vagrant Boxes
 - [HAproxy](https://cbonte.github.io/haproxy-dconv/configuration-1.5.html) - HAproxy Documentation
 - [Jboss Doc](https://access.redhat.com/documentation/es/jboss-enterprise-application-platform) - Jboss Documentation
-
+- [ansible-examples](https://github.com/ansible/ansible-examples) - Demostration Roles and Playbooks
+- [Questions and topics](doc/ansible_demo_notes.md) - Questions and concerns about Ansible, Tower and tips (thanks to our pal 'liquidat')
 
 Enjoy!
