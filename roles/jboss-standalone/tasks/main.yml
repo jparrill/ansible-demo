@@ -31,8 +31,11 @@
 - name: Copy the init script
   copy: src=jboss-as-standalone.sh dest=/etc/init.d/jboss mode=0755
 
+- name: Install JBoss Applications
+  shell: "cp -f /vagrant/jboss-apps/*.war /usr/share/jboss-as/standalone/deployments"
+
 - name: Enable JBoss to be started at boot
   service: name=jboss enabled=yes state=started
 
-- name: deploy iptables rules
+- name: Discard iptables rules
   command: iptables -F
