@@ -4,11 +4,13 @@
 
 function download_jboss() {
   yum install -y --downloadonly --downloaddir=$jboss_fold unzip java-1.7.0-openjdk
+  createrepo $jboss_fold
   wget http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip -O /vagrant/disconnected/jboss-as-7.1.1.Final.zip
 }
 
 function download_haproxy() {
   yum install -y --downloadonly --downloaddir=$haproxy_fold socat haproxy
+  createrepo $haproxy_fold
 }
 
 function requirements() {
@@ -16,6 +18,7 @@ function requirements() {
   jboss_fold=/vagrant/disconnected/jboss/
   mkdir -p $haproxy_fold
   mkdir -p $jboss_fold
+  yum install createrepo -y
 }
 
 ## Main
