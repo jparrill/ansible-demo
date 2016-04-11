@@ -13,6 +13,7 @@ Requirements:
 - Some Jboss Applications
 - Rpms for disconnected environment
 - [Ansible Tower Subscription](https://www.ansible.com/tower-trial)
+- JBoss Application (war file) into jboss-apps folder
 
 ## Pre-Deployment
 To prepare the environment to execute this demo you must execute some commands (we will asume that you already have installed Virtualbox and Vagrant or if you want to use Libvirt you also need vagrant-mutate plugin to convert Virtualbox boxes into Libvirt compatible image):
@@ -47,6 +48,8 @@ Password: vagrant
 ```
 
 Submit the changes
+
+**NOTE**: Before you continue, don't forget to download a WAR file and put into jboss-apps folder otherwise, the playbook will fail.
 
 ### Inventory
 When the nodes are up, get all the Ip's from everyone and create the inventory in Tower (Those ips are an example):
@@ -129,7 +132,7 @@ With all three templates created, now we can consume it ;), just press Run (rock
 ## Disconnected_mode
 At first time, in your home, office or w/e you need to download all packages and software to perform the demo, the first time execute it in a connected environment to fulfill this requirements. Remember to download also the Plugins and Vagrant boxes.
 
-To use the disconnected_mode just change you branch pointing to 'disconnected_mode' and execute this:
+**To use the disconnected_mode just change you branch pointing to 'disconnected_mode'** and execute this:
 
 ```
 vagrant up jboss01.localdomain
@@ -138,6 +141,9 @@ vagrant ssh jboss01.localdomain
 sudo su
 bash /vagrant/utils/download_content.sh
 ```
+
+**NOTE**: Before you continue, don't forget to download a WAR file and put into jboss-apps folder otherwise, the playbook will fail.
+
 
 Ensure that you have all rpms of haproxy, Jboss and the Jboss targz file in the disconnected folder. Now just logout from the VM.
 
