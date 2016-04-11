@@ -26,11 +26,8 @@ Vagrant.configure(2) do |config|
     config.vm.define name do |node|
       node.vm.box = details['box']
       node.vm.hostname = name
-      node.vm.network :private_network, ip: details['address']
-      #node.vm.network "public_network", bridge: "en2: Wi-Fi (AirPort)"
-      #node.vm.network "public_network", bridge: "en1: Ethernet 2"
-      # node.vm.network "forwarded_port", guest: 80, host: 8080
-      # node.vm.network "forwarded_port", guest: 443, host: 4443
+      #node.vm.network :private_network, ip: details['address']
+      node.vm.network "public_network", bridge: "en2: Wi-Fi (AirPort)"
       node.vm.provider 'virtualbox' do |vb|
         vb.customize ['modifyvm', :id, '--memory', details['memory']]
         vb.customize ['modifyvm', :id, '--cpus', details['cpus']]

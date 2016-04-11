@@ -12,6 +12,7 @@ Requirements:
   - Vagrant-hostmanager
 - Some Jboss Applications
 - Rpms for disconnected environment
+- [Ansible Tower Subscription](https://www.ansible.com/tower-trial)
 
 ## Pre-Deployment
 To prepare the environment to execute this demo you must execute some commands (we will asume that you already have installed Virtualbox and Vagrant or if you want to use Libvirt you also need vagrant-mutate plugin to convert Virtualbox boxes into Libvirt compatible image):
@@ -57,7 +58,7 @@ When the nodes are up, get all the Ip's from everyone and create the inventory i
 
 - jboss01.localdomain
 ```
-ansible_ssh_host: 192.168.1.137
+ansible_ssh_host: 192.168.1.51
 ansible_ssh_pass: vagrant
 ansible_ssh_port: 22
 ansible_ssh_user: vagrant
@@ -65,7 +66,7 @@ ansible_ssh_user: vagrant
 
 - jboss02.localdomain
 ```
-ansible_ssh_host: 192.168.1.138
+ansible_ssh_host: 192.168.1.52
 ansible_ssh_pass: vagrant
 ansible_ssh_port: 22
 ansible_ssh_user: vagrant
@@ -73,7 +74,7 @@ ansible_ssh_user: vagrant
 
 - haproxy01.localdomain
 ```
-ansible_ssh_host: 192.168.1.139
+ansible_ssh_host: 192.168.1.53
 ansible_ssh_pass: vagrant
 ansible_ssh_port: 22
 ansible_ssh_user: vagrant
@@ -124,6 +125,48 @@ Limit: all
 ```
 
 With all three templates created, now we can consume it ;), just press Run (rocket icon) and wait for it.
+
+## Disconnected_mode
+At first time, in your home, office or w/e you need to download all packages and software to perform the demo, the first time execute it in a connected environment to fulfill this requirements. Remember to download also the Plugins and Vagrant boxes.
+
+To use the disconnected_mode just change you branch pointing to 'disconnected_mode' and execute this:
+
+```
+vagrant up jboss01.localdomain
+....wait for it
+vagrant ssh jboss01.localdomain
+sudo su
+bash /vagrant/utils/download_content.sh
+```
+
+Ensure that you have all rpms of haproxy, Jboss and the Jboss targz file in the disconnected folder. Now just logout from the VM.
+
+Follow the demo from Pre-phase stage and don't change to master branch.
+
+## Known Errors
+If an error appears about the network waking up the VM, just change at Vagrantfile the network mode from
+- node.vm.network :private_network, ip: details['address']
+
+to
+- node.vm.network "public_network", bridge: "en2: Wi-Fi (AirPort)"
+
+Execute the download stage and change again to the first one network mode. Then wake up the VM's. Maybe will be necessary to destroy the 'jboss01.localdomain' vm before perform the changes at Vagrantfile
+
+Error:
+```
+➜  ansible-demo git:(disconnected_mode) vagrant up jboss01.localdomain
+Bringing machine 'jboss01.localdomain' up with 'virtualbox' provider...
+==> jboss01.localdomain: Importing base box 'geerlingguy/centos7'...
+==> jboss01.localdomain: Matching MAC address for NAT networking...
+==> jboss01.localdomain: Checking if box 'geerlingguy/centos7' is up to date...
+==> jboss01.localdomain: Setting the name of the VM: ansible-demo_jboss01localdomain_1460407294742_69126
+==> jboss01.localdomain: Fixed port collision for 22 => 2222. Now on port 2200.
+==> jboss01.localdomain: Clearing any previously set network interfaces...
+The specified host network collides with a non-hostonly network!
+This will cause your specified IP to be inaccessible. Please change
+the IP or name of your host only network so that it no longer matches that of
+a bridged or non-hostonly network.
+```
 
 ## References
 - [Ansible Doc](http://docs.ansible.com/ansible/index.html) - Ansible Official Documentation
