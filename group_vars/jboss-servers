@@ -1,4 +1,9 @@
 # Here are variables related to the standalone JBoss installation
-
 http_port: 8080
 https_port: 8443
+
+
+# Jboss RPMS for disconnected environments
+repo_name: 'local'
+repo_url: 'file:///vagrant/disconnected/jboss'
+repo_enabled: 1

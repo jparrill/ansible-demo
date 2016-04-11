@@ -4,8 +4,8 @@
 - name: Download and install haproxy and socat
   yum: name={{ item }} state=present
   with_items:
-  - haproxy
-  - socat
+  - /vagrant/disconnected/haproxy/haproxy-1.5.14-3.el7.x86_64.rpm
+  - /vagrant/disconnected/haproxy/socat-1.7.2.2-5.el7.x86_64.rpm
 
 - name: Configure the haproxy cnf file with hosts
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
