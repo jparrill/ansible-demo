@@ -26,11 +26,7 @@ Vagrant.configure(2) do |config|
     config.vm.define name do |node|
       node.vm.box = details['box']
       node.vm.hostname = name
-      #node.vm.network :private_network, ip: details['address']
-      #node.vm.network "public_network", bridge: "en2: Wi-Fi (AirPort)"
-      node.vm.network "public_network", bridge: "en1: Ethernet 2"
-      # node.vm.network "forwarded_port", guest: 80, host: 8080
-      # node.vm.network "forwarded_port", guest: 443, host: 4443
+      node.vm.network :private_network, ip: details['address']
       node.vm.provider 'virtualbox' do |vb|
         vb.customize ['modifyvm', :id, '--memory', details['memory']]
         vb.customize ['modifyvm', :id, '--cpus', details['cpus']]
@@ -44,13 +40,6 @@ Vagrant.configure(2) do |config|
           vb.customize ['storageattach', :id, '--storagectl', 'SCSI Controller', '--port', details['storage_port'], '--device', 0, '--type', 'hdd', '--medium', "#{name}.vdi"]
         end
       end
-      # node.vm.provision "shell" do |s|
-      #   s.inline = "bash /vagrant/utils/bootstrap.sh register"
-      # end
-      # config.trigger.before :destroy do
-      #   info "Cleaning subscription"
-      #   run_remote  "bash /vagrant/utils/bootstrap.sh clean"
-      # end
     end
   end
 end
