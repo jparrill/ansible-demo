@@ -5,6 +5,12 @@ tower.localdomain:
   address: 192.168.1.50
   box: tower-2.4.3
 
+rundeck.localdomain:
+  memory: 1024
+  cpus: 1
+  address: 192.168.1.49
+  box: geerlingguy/centos7
+
 jboss01.localdomain:
   memory: 1024
   cpus: 1
