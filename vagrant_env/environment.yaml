@@ -22,3 +22,9 @@ haproxy01.localdomain:
   cpus: 1
   address: 192.168.1.53
   box: geerlingguy/centos7
+
+jboss03.localdomain:
+  memory: 1024
+  cpus: 1
+  address: 192.168.1.52
+  box: geerlingguy/centos7
