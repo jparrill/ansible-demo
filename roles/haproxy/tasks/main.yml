@@ -8,7 +8,7 @@
   - /vagrant/disconnected/haproxy/socat-1.7.2.2-5.el7.x86_64.rpm
 
 - name: Configure the haproxy cnf file with hosts
-  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  template: src={{ haproxy_template }} dest=/etc/haproxy/haproxy.cfg
   notify: restart haproxy
 
 - name: Start the haproxy service

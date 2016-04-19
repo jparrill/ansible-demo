@@ -10,5 +10,15 @@
 - hosts: lbservers
   remote_user: root
   sudo: yes
+  vars:
+    haproxy_template: 'haproxy.cfg.j2'
+  roles:
+    - haproxy
+
+- hosts: elastic
+  remote_user: root
+  sudo: yes
+  vars:
+    haproxy_template: 'elastic_haproxy.cfg.j2'
   roles:
     - haproxy
