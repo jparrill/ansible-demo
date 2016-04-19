@@ -54,9 +54,13 @@ Submit the changes
 ### Inventory
 When the nodes are up, get all the Ip's from everyone and create the inventory in Tower (Those ips are an example):
 - Create the inventory file
-- Create both groups
+- Create this groups
   - jboss-servers
+    - Add jboss01.localdomain and jboss02.localdomain
   - lbservers
+    - Add haproxy01.localdomain
+  - elastic
+    - Add jboss03.localdomain
 - Create all nodes in the the proper group
 
 - jboss01.localdomain
@@ -78,6 +82,14 @@ ansible_ssh_user: vagrant
 - haproxy01.localdomain
 ```
 ansible_ssh_host: 192.168.1.53
+ansible_ssh_pass: vagrant
+ansible_ssh_port: 22
+ansible_ssh_user: vagrant
+```
+
+- jboss03.localdomain
+```
+ansible_ssh_host: 192.168.1.54
 ansible_ssh_pass: vagrant
 ansible_ssh_port: 22
 ansible_ssh_user: vagrant
@@ -105,7 +117,7 @@ Machine Credential: vagrant
 Limit: lbservers
 ```
 
-- Deploy of 2 JBoss servers
+- Deploy of 3 JBoss servers, but the 'elastic' nodes  keeps down
 ```
 Name: JBoss Deployment
 Job Type: Run
@@ -116,7 +128,7 @@ Machine Credential: vagrant
 Limit: jboss-servers
 ```
 
-- Deployment with all service
+- Deployment with all services
 ```
 Name: HA JBoss Deployment
 Job Type: Run
@@ -127,7 +139,25 @@ Machine Credential: vagrant
 Limit: all
 ```
 
-With all three templates created, now we can consume it ;), just press Run (rocket icon) and wait for it.
+- Add all nodes from 'elastic' group to haproxy load-balancing, also install JBoss with all deps on those nodes.
+```
+Name: Elastic Deployment
+Job Type: Run
+Inventory: vagrant
+Project: Ansible Demo
+Playbook: elastic.yml
+Machine Credential: vagrant
+Limit: all
+```
+
+With all templates created, now we can consume it ;), just press Run (rocket icon) and wait for it.
+
+## Elastic features
+There is a playbook that shows how works the elasticity. To see how it works, just execute 'Elastic Deployment' Job-Template. This execution will take 2 actions:
+- Add all nodes from Elastic group as backend for HAproxy, this way will be included inside of the load balancer.
+- Install and activate JBoss with applications in the 'Elastic' nodes.
+
+To deactivate this feature, just execute 'HA JBoss Deployment' template, to reconfigure the HAproxy and deactivate JBoss on elastic nodes.
 
 ## Disconnected_mode
 At first time, in your home, office or w/e you need to download all packages and software to perform the demo, the first time execute it in a connected environment to fulfill this requirements. Remember to download also the Plugins and Vagrant boxes.
