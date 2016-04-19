@@ -39,3 +39,5 @@
 
 - name: Discard iptables rules
   command: iptables -F
+
+- meta: flush_handlers
