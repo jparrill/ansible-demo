@@ -1,0 +1,17 @@
+---
+## This stage will execute the installation and configuration of HAproxy server
+## with the elastic template, using2 inventories, as backend servers.
+- hosts: lbservers
+  remote_user: root
+  sudo: yes
+  vars:
+    haproxy_template: 'elastic_haproxy.cfg.j2'
+  roles:
+    - haproxy
+
+## This stage will activate the elastic servers to receive requests through JBoss
+- hosts: elastic
+  remote_user: root
+  sudo: yes
+  roles:
+    - jboss-standalone
