@@ -8,7 +8,7 @@
   - socat
 
 - name: Configure the haproxy cnf file with hosts
-  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  template: src={{ haproxy_template }} dest=/etc/haproxy/haproxy.cfg
   notify: restart haproxy
 
 - name: Start the haproxy service

@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
       node.vm.box = details['box']
       node.vm.hostname = name
       #node.vm.network :private_network, ip: details['address']
-      node.vm.network "public_network", bridge: "en2: Wi-Fi (AirPort)"
+      node.vm.network :public_network, ip: details['address']
       node.vm.provider 'virtualbox' do |vb|
         vb.customize ['modifyvm', :id, '--memory', details['memory']]
         vb.customize ['modifyvm', :id, '--cpus', details['cpus']]

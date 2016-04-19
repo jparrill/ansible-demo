@@ -1,14 +1,26 @@
 ---
 # This playbook deploys a simple standalone JBoss server.
-
 - hosts: jboss-servers
   remote_user: root
   sudo: yes
   roles:
     - jboss-standalone
 
+# This playbook deploys a simple standalone HAproxy server.
 - hosts: lbservers
   remote_user: root
   sudo: yes
+  vars:
+    haproxy_template: 'haproxy.cfg.j2'
   roles:
     - haproxy
+
+## This stage will deploy Jboss on elastic nodes to be ready when overload peak
+## appears. But servers at this inventory will have the JBoss disabled
+- hosts: elastic
+  remote_user: root
+  sudo: yes
+  roles:
+    - jboss-standalone
+  tasks:
+    - include: roles/jboss-standalone/tasks/deactivate_nodes.yml
